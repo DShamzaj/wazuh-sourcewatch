@@ -1,0 +1,14 @@
+{
+  "description": "SourceWatch UI users: view sources and coverage, manage contracts and gap overrides",
+  "cluster_permissions": ["cluster_composite_ops_ro"],
+  "index_permissions": [
+    {
+      "index_patterns": ["sourcewatch-*", "wazuh-alerts-*"],
+      "allowed_actions": ["read"]
+    },
+    {
+      "index_patterns": ["sourcewatch-config", "sourcewatch-inventory"],
+      "allowed_actions": ["crud"]
+    }
+  ]
+}

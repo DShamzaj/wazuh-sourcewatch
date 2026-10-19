@@ -1,0 +1,12 @@
+{
+  "name": "sourcewatch",
+  "version": "0.1.0",
+  "description": "Log source health and silence detection for Wazuh",
+  "private": true,
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "yarn plugin-helpers build",
+    "plugin-helpers": "node ../../scripts/plugin_helpers",
+    "osd": "node ../../scripts/osd"
+  }
+}

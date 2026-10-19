@@ -1,0 +1,64 @@
+<!--
+  SourceWatch - log source health rules for Wazuh
+  https://github.com/DShamzaj/wazuh-sourcewatch
+  Rule ID range: 100700-100709
+  Copyright (C) Hamza Jameel. Licensed under the Apache License 2.0.
+-->
+<group name="sourcewatch,">
+
+  <rule id="100700" level="0">
+    <decoded_as>json</decoded_as>
+    <field name="sourcewatch.event">^state_change$</field>
+    <description>SourceWatch: log source state change</description>
+  </rule>
+
+  <rule id="100701" level="8">
+    <if_sid>100700</if_sid>
+    <field name="sourcewatch.state" type="pcre2">^silent$</field>
+    <description>SourceWatch: log source $(sourcewatch.location) on agent $(sourcewatch.agent_name) went silent - $(sourcewatch.lost_rule_count) detection rules affected</description>
+    <mitre>
+      <id>T1562</id>
+    </mitre>
+    <group>source_silent,</group>
+  </rule>
+
+  <rule id="100702" level="5">
+    <if_sid>100700</if_sid>
+    <field name="sourcewatch.state" type="pcre2">^delayed$</field>
+    <description>SourceWatch: log source $(sourcewatch.location) on agent $(sourcewatch.agent_name) is delayed - $(sourcewatch.lost_rule_count) detection rules at risk</description>
+    <group>source_delayed,</group>
+  </rule>
+
+  <rule id="100703" level="6">
+    <if_sid>100700</if_sid>
+    <field name="sourcewatch.state" type="pcre2">^volume_drop$</field>
+    <description>SourceWatch: event volume dropped for $(sourcewatch.location) on agent $(sourcewatch.agent_name)</description>
+    <group>source_volume_drop,</group>
+  </rule>
+
+  <rule id="100704" level="3">
+    <if_sid>100700</if_sid>
+    <field name="sourcewatch.state" type="pcre2">^healthy$</field>
+    <description>SourceWatch: log source $(sourcewatch.location) on agent $(sourcewatch.agent_name) recovered</description>
+    <group>source_recovered,</group>
+  </rule>
+
+  <rule id="100705" level="7">
+    <if_sid>100700</if_sid>
+    <field name="sourcewatch.state" type="pcre2">^missing$</field>
+    <description>SourceWatch: required log source $(sourcewatch.location) never seen on agent $(sourcewatch.agent_name) (contract $(sourcewatch.contract)) - $(sourcewatch.lost_rule_count) detection rules not covered</description>
+    <mitre>
+      <id>T1562</id>
+    </mitre>
+    <group>source_missing,</group>
+  </rule>
+
+  <rule id="100706" level="3">
+    <if_sid>100700</if_sid>
+    <field name="sourcewatch.previous_state" type="pcre2">^missing$</field>
+    <field name="sourcewatch.state" type="pcre2">^learning$</field>
+    <description>SourceWatch: required log source $(sourcewatch.location) is now reporting on agent $(sourcewatch.agent_name)</description>
+    <group>source_recovered,</group>
+  </rule>
+
+</group>

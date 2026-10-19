@@ -1,0 +1,18 @@
+{
+  "description": "SourceWatch background engine (Wazuh dashboard server user)",
+  "cluster_permissions": [
+    "cluster_monitor",
+    "cluster_composite_ops",
+    "cluster_manage_index_templates"
+  ],
+  "index_permissions": [
+    {
+      "index_patterns": ["sourcewatch-*"],
+      "allowed_actions": ["crud", "create_index", "manage"]
+    },
+    {
+      "index_patterns": ["wazuh-alerts-*", "wazuh-archives-*"],
+      "allowed_actions": ["read"]
+    }
+  ]
+}

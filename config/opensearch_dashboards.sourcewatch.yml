@@ -1,0 +1,29 @@
+# ---------------------------------------------------------------------------
+# SourceWatch - add these lines to opensearch_dashboards.yml
+#   Package install: /etc/wazuh-dashboard/opensearch_dashboards.yml
+#   wazuh-docker:    config/wazuh_dashboard/opensearch_dashboards.yml
+# Only the wazuhApi block is required; everything else has sensible defaults.
+# ---------------------------------------------------------------------------
+
+# Wazuh server API: needed for native alerts (rules 100700-100706) and contracts
+sourcewatch.wazuhApi.enabled: true
+sourcewatch.wazuhApi.url: "https://<wazuh-manager>:55000"
+sourcewatch.wazuhApi.username: "<api-user>"
+sourcewatch.wazuhApi.password: "<api-password>"
+sourcewatch.wazuhApi.verifyTls: false
+
+# --- Optional tuning (defaults shown) ---
+# sourcewatch.enabled: true
+# sourcewatch.sourceIndex: "wazuh-alerts-*"
+# sourcewatch.intervalSeconds: 900
+# sourcewatch.ingestLagSeconds: 60
+# sourcewatch.warmupSeconds: 86400
+# sourcewatch.gapHistory: 50
+# sourcewatch.gapPercentile: 0.95
+# sourcewatch.minGapSamples: 5
+# sourcewatch.volumeDropRatio: 0.2
+# sourcewatch.rebaselineAfterCycles: 12
+# sourcewatch.ignoreLocations: ["API-Webhook", "wazuh-remoted", "wazuh-agent", "wazuh-monitord"]
+# sourcewatch.forgetAfterDays: 30
+# sourcewatch.alertsIndex: "wazuh-alerts-*"
+# sourcewatch.coverageDays: 30
